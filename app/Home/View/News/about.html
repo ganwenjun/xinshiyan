@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+ <title> {$info['title']}-{$cate.name}-{:C('pin_site_name')}</title>
+
+    <meta name="Keywords" content="{$cate.seo_keys}" />
+
+    <meta name="Description" content="{$cate.seo_desc}" />
+
+<link href="__STATIC__css/xsy.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="__STATIC__js/jquery.min.js"></script>
+
+<script type="text/javascript" src="__STATIC__js/script.js"></script> 
+
+<script type="text/javascript" src="__STATIC__js/ScrollPic.js"></script> 
+
+<script>
+
+$(function(){
+
+    var nav = $(".nav");
+
+    var init = $(".nav .m").eq(ind);
+
+    var block = $(".nav .block");
+
+    block.css({
+
+        "left": init.position().left - 3
+
+    });
+
+    nav.hover(function() {},
+
+    function() {
+
+        block.stop().animate({
+
+            "left": init.position().left - 3
+
+        },
+
+        100);
+
+    });
+
+    $(".nav").slide({
+
+        type: "menu",
+
+        titCell: ".m",
+
+        targetCell: ".sub",
+
+        delayTime: 300,
+
+        triggerTime: 0,
+
+        returnDefault: true,
+
+        defaultIndex: ind,
+
+        startFun: function(i, c, s, tit) {
+
+            block.stop().animate({
+
+                "left": tit.eq(i).position().left - 3
+
+            },
+
+            100);
+
+        }
+
+    });
+
+});
+
+var ind = 0;
+
+
+
+
+
+</script>
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+<include file="Public/top" />
+
+     
+
+<!--<div class="list-ban about-ban"></div>-->
+
+<div class="list-ban" style="background: url({:attach($cate['img'],'article_cate')}) center no-repeat;"></div>
+
+
+
+
+
+<!--banner结束-->
+
+ 
+
+<div class="list-main-tit">
+	<p>您所在的位置： <a href="__ROOT__/" style="opacity: 1;">首页</a> &gt; <a href="{:U('news/about',array('id'=>$cate['id']))}">{$cate['name']}</a> &gt;<a href="#">{$info['title']} </a> </p>
+</div>
+<div class="list-main">
+	<div class="list-main-l">
+		<div class="pmenu">
+        	<ul>
+        <volist name="sub_cate" id="val">
+       	<li <if condition="$val['id'] eq $info['id']">class="on"</if>><a   href="{:U('news/about',array('id'=>$val['cate_id'], 'art_id'=>$val['id']))}"> <i>{$val['title']}</i></a></li>
+       </volist>
+            </ul>
+        </div> 
+    	<include file="Public/left" />
+    </div>
+	<div class="list-main-r">
+    	<div class="list-con">
+           <div>{:code2html($info['info'])}</div>
+			<!--<div class="xiangguan"><b>上一篇：</b><a href="#">江西新视野营销策划有限公司</a> &nbsp;&nbsp; <b>下一篇：</b><a href="#">江西新视野营销策划有限公司</a></div>-->
+
+        </div>
+
+    
+
+    </div>
+
+</div>
+
+
+
+	<include file="Public/footer" />
+
+	
+
+<script type="text/javascript" language="javascript">
+
+    var aebiz = new ScrollPic();
+
+    aebiz.scrollContId = "aebiz_center01"; //内容容器ID
+
+    aebiz.arrLeftId = "aebiz_left01";//左箭头ID
+
+    aebiz.arrRightId = "aebiz_right01"; //右箭头ID
+
+    aebiz.listEvent = "onmouseover"; //切换事件
+
+    aebiz.frameWidth = 900;//显示框宽度
+
+    aebiz.pageWidth = 252; //翻页宽度
+
+    aebiz.speed = 30; //移动速度(单位毫秒，越小越快)
+
+    aebiz.space = 10; //每次移动像素(单位px，越大越快)
+
+    aebiz.autoPlay = true; //自动播放
+
+    aebiz.upright = false; //垂直滚动
+
+    aebiz.autoPlayTime = 4; //自动播放间隔时间(秒)
+
+    aebiz.initialize(); //初始化
+
+</script>
+
+
+
+
+
+</body>
+
+</html>
+

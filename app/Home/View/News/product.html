@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title><notempty name="cate.name"> {$cate.name}-</notempty>{$info.name}-{:C('pin_site_name')}</title>
+    <meta name="Keywords" content="{$info.seo_keys}" />
+    <meta name="Description" content="{$info.seo_desc}" />
+<link href="__STATIC__css/xsy.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__STATIC__js/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__js/script.js"></script> 
+<script type="text/javascript" src="__STATIC__js/ScrollPic.js"></script> 
+<script>
+$(function(){
+    var nav = $(".nav");
+    var init = $(".nav .m").eq(ind);
+    var block = $(".nav .block");
+    block.css({
+        "left": init.position().left - 3
+    });
+    nav.hover(function() {},
+    function() {
+        block.stop().animate({
+            "left": init.position().left - 3
+        },
+        100);
+    });
+    $(".nav").slide({
+        type: "menu",
+        titCell: ".m",
+        targetCell: ".sub",
+        delayTime: 300,
+        triggerTime: 0,
+        returnDefault: true,
+        defaultIndex: ind,
+        startFun: function(i, c, s, tit) {
+            block.stop().animate({
+                "left": tit.eq(i).position().left - 3
+            },
+            100);
+        }
+    });
+});
+var ind = 0;
+
+
+</script>
+
+</head>
+
+<body>
+<include file="Public/top" />
+     
+<!--<div class="list-ban pro-ban"></div>-->
+<div class="list-ban" style="background: url({:attach($info['img'],'article_cate')}) center no-repeat;"></div>
+
+
+<!--banner结束-->
+ 
+<div class="list-main-tit">
+	<p>您所在的位置： <a href="__ROOT__/" style="opacity: 1;">首页</a> &gt; <a href="{:U('news/product',array('id'=>$info['id']))}">{$info['name']}</a> &gt; <a href="#">{$cate['name']}	</a>  </p>
+</div>
+
+<div class="list-main">
+	<div class="list-main-l">
+		<div class="pmenu">
+        	<ul>
+      <volist name="sub_cate" id="val">
+      	<li <if condition="$val['id'] eq $cate['id']">class="on"</if>><a  href="<notempty name="val['url']">{$val['url']}<else />{:U('news/product',array('id'=>$val['pid'],'cate_id'=>$val['id']))}</notempty>"><i>{$val['name']}</i></a></li>
+      </volist>  
+            </ul>
+        </div>        
+    <include file="Public/left" />
+    </div>
+    
+    
+	<div class="list-main-r">
+    	<ul class="list-pro">
+   <volist name="list" id="val">
+   	<li><a href="{:U('news/procon',array('id'=>$info['id'],'art_id'=>$val['id']))}"><i class="pro-img"><img src="{:attach($val['img'],'article')}"></i><p>{$val['title']} </p></a></li>
+   </volist> 		
+    	</ul>
+    
+    
+    <div class="pages">
+		{$page}
+    </div>
+    
+    </div>
+    
+    
+    
+</div>
+
+<include file="Public/footer" />
+
+<script type="text/javascript" language="javascript">
+    var aebiz = new ScrollPic();
+    aebiz.scrollContId = "aebiz_center01"; //内容容器ID
+    aebiz.arrLeftId = "aebiz_left01";//左箭头ID
+    aebiz.arrRightId = "aebiz_right01"; //右箭头ID
+    aebiz.listEvent = "onmouseover"; //切换事件
+    aebiz.frameWidth = 1100;//显示框宽度
+    aebiz.pageWidth = 252; //翻页宽度
+    aebiz.speed = 30; //移动速度(单位毫秒，越小越快)
+    aebiz.space = 10; //每次移动像素(单位px，越大越快)
+    aebiz.autoPlay = true; //自动播放
+    aebiz.upright = false; //垂直滚动
+    aebiz.autoPlayTime = 4; //自动播放间隔时间(秒)
+    aebiz.initialize(); //初始化
+</script>
+
+
+</body>
+</html>

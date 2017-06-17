@@ -1,0 +1,214 @@
+<include file="Public:header" />
+<!--添加文章-->
+<form id="info_form" action="{:U('article/add')}" method="post" enctype="multipart/form-data">
+<div class="pad_lr_10">
+	<div class="col_tab">
+		<ul class="J_tabs tab_but cu_li">
+			<li class="current">{:L('article_basic')}</li>
+			<li>{:L('article_seo')}</li>
+            <li>图集</li>
+            <li>扩展内容</li>
+		</ul>
+		<div class="J_panes">
+			<div class="content_list pad_10">
+				<table width="100%" cellspacing="0" class="table_form">
+					<tr>
+						<th width="120">{:L('article_cateid')} :</th>
+						<td><select class="J_cate_select mr10" data-pid="0" data-uri="{:U('article_cate/ajax_getchilds')}" data-selected=""></select><input type="hidden" name="cate_id" id="J_cate_id" value="" /></td>
+					</tr>
+		            <tr>
+						<th>{:L('article_title')} :</th>
+						<td>
+							<input type="text" name="title" id="J_title" class="input-text" size="60">
+					        <input type="hidden" value="" name="color" id="J_color">
+					        <a href="javascript:;" class="color_picker_btn"><img class="J_color_picker" data-it="J_title" data-ic="J_color" src="__PUBLIC_ADMIN__/images/color.png"></a>
+		                </td>
+					</tr>
+					<tr>
+						<th>跳转链接 :</th>
+						<td>
+							<input type="text" name="url" id="J_url" class="input-text" size="60">
+		                </td>
+					</tr>
+					<tr>
+						<th>短标题 :</th>
+						<td><input type="text" name="short_title" id="short_title" class="input-text" size="50" value=""></td>
+					</tr>
+					<tr>
+						<th>别名:</th>
+						<td><input type="text" name="alias" id="alias" class="input-text" size="50" value=""></td>
+					</tr>
+                    <tr>
+                        <th>属性:</th>
+                        <td>
+                            <volist name="attrs" id="attr">
+                              <label><input type="checkbox" name="attr[]" value="{$attr.id}"> {$attr.name}</label>&nbsp;&nbsp;
+                            </volist>
+                        </td>
+                    </tr>
+		            <tr>
+						<th>{:L('tag')} :</th>
+						<td>
+		                	<input type="text" name="tags" id="J_tags" class="input-text" size="50">
+		                    <input type="button" value="{:L('auto_get')}" id="J_gettags" name="tags_btn" class="btn">
+		                </td>
+					</tr>
+					<tr>
+						<th>来源 :</th>
+						<td><input type="text" name="origin" class="input-text" size="30" value="{$info.origin}"></td>
+					</tr>
+		            <tr>
+						<th>{:L('author')} :</th>
+						<td><input type="text" name="author" id="author" class="input-text" size="30" value="{$author}"></td>
+					</tr>
+		            <tr>
+						<th>{:L('article_img')} :</th>
+						<td><input type="file" name="img" id="img" class="input-text"  style="width:200px;" />
+						<label><input type="radio" name="is_thumd" class="radio_style" value="1" >缩略图</label>&nbsp;&nbsp;
+						<label><input type="radio" name="is_thumd" class="radio_style" value="0" checked="checked"> 原图</label></td>
+		 			</tr>
+					<tr>
+						<th>{:L('publish')} :</th>
+		 				<td>
+		                	<label><input type="radio" name="status" class="radio_style" value="1"  checked="checked"> {:L('yes')} </label>&nbsp;&nbsp;
+							<label><input type="radio" name="status" class="radio_style" value="0"> {:L('no')}</label>
+						</td>
+					</tr>
+                    <tr>
+						<th>{:L('article_abst')} :</th>
+						<td><textarea name="intro" id="abst" style="width:67%;height:50px;resize:none;"></textarea></td>
+					</tr>
+		            <tr>
+						<th>详细内容 :</th>
+		                <td><textarea name="info" class="info" style="width:68%;height:400px;visibility:hidden;resize:none;"></textarea></td>
+					</tr>
+					 <!--<tr>
+						<th>产品参数 :</th>
+		                <td><textarea name="parameter" class="info" style="width:67%;height:100px;resize:none;">{$info.parameter}</textarea></td>
+					</tr>
+					 <tr>
+						<th>产品描述 :</th>
+		               <td><textarea name="describe" class="info" style="width:67%;height:100px;resize:none;">{$info.describe}</textarea></td>
+					</tr>-->
+                    <tr>
+                        <th>自定义模板 :</th>
+                        <td><input type="text" name="alias" id="templet" class="input-text" size="30" value="{$info.templet}"><span class="gray ml10">如果非开发人员请略过，千万别填内容</span></td>
+                    </tr>
+				</table>
+			</div>
+			<div class="content_list pad_10 hidden">
+				<table width="100%" cellspacing="0" class="table_form">
+					<tr>
+						<th width="120">{:L('seo_title')} :</th>
+		 				<td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60"></td>
+					</tr>
+					<tr>
+						<th>{:L('seo_keys')} :</th>
+						<td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60"></td>
+					</tr>
+					<tr>
+						<th>{:L('seo_desc')} :</th>
+						<td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8"></textarea></td>
+					</tr>
+				</table>
+			</div>
+            <div class="content_list pad_10 hidden">
+                <table width="100%" cellpadding="2" cellspacing="1" class="table_form" id="first_upload_file">
+                    <tbody class="uplode_file">
+                    <tr>
+                        <th width="100"><a href="javascript:void(0);" class="blue" onclick="add_file();"><img src="__STATIC__/css/bgimg/tv-expandable.gif" /></a> 上传文件 :</th>
+                        <td><input type="file" name="imgs[]"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content_list pad_10 hidden">
+                <table width="100%" cellpadding="2" cellspacing="1" class="table_form" id="item_attr">
+                    <tbody class="add_item_attr">
+                    <tr>
+                        <th width="210">
+                            <a href="javascript:void(0);" class="blue" onclick="add_ext();"><img src="__STATIC__/css/bgimg/tv-expandable.gif" /></a> 属性名 :<input type="text" name="ext[name][]" class="input-text" size="20">
+                        </th>
+                        <td> 属性值 :<input type="text" name="ext[value][]" class="input-text" size="30"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+		<div class="mt10"><input type="submit" value="{:L('submit')}" id="dosubmit" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"><br /><br /><br /></div>
+	</div>
+</div>
+</form>
+<include file="Public:footer" />
+
+<table id="next_upload_file" style="display:none;">
+    <tbody class="uplode_file">
+    <tr>
+        <th width="100"><a href="javascript:void(0);" onclick="del_file_box(this);" class="blue"><img src="__STATIC__/css/bgimg/tv-collapsable.gif" /></a>上传文件 :</th>
+        <td><input type="file" name="imgs[]"></td>
+    </tr>
+    </tbody>
+</table>
+<table id="hidden_attr" style="display:none;">
+    <tbody class="add_item_attr">
+    <tr>
+        <th width="200">
+            <a href="javascript:void(0);" class="blue" onclick="del_attr(this);"><img src="__STATIC__/css/bgimg/tv-collapsable.gif" /></a>属性名 :<input type="text" name="ext[name][]" class="input-text" size="20">
+        </th>
+        <td>属性值 :<input type="text" name="ext[value][]" class="input-text" size="30"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="__PUBLIC_ADMIN__js/jquery/plugins/colorpicker.js"></script>
+<script src="__PUBLIC_ADMIN__js/kindeditor/kindeditor.js"></script>
+<script type="text/javascript">
+    function add_file()
+    {
+        $("#next_upload_file .uplode_file").clone().insertAfter($("#first_upload_file .uplode_file:last"));
+    }
+    function del_file_box(obj)
+    {
+        $(obj).parent().parent().remove();
+    }
+    function add_ext()
+    {
+        $("#hidden_attr .add_item_attr").clone().insertAfter($("#item_attr .add_item_attr:last"));
+    }
+    function del_attr(obj)
+    {
+        $(obj).parent().parent().remove();
+    }
+$('.J_cate_select').cate_select('请选择');
+$(function() {
+	KindEditor.create('.info', {
+		uploadJson : '{:U("attachment/editer_upload")}',
+		fileManagerJson : '{:U("attachment/editer_manager")}',
+		allowFileManager : true
+	});
+	$('ul.J_tabs').tabs('div.J_panes > div');
+
+	//颜色选择器
+	$('.J_color_picker').colorpicker();
+
+	//自动获取标签
+	$('#J_gettags').live('click', function() {
+		var title = $.trim($('#J_title').val());
+		if(title == ''){
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+			return false;
+		}
+		$.getJSON('{:U("article/ajax_gettags")}', {title:title}, function(result){
+			if(result.status == 1){
+				$('#J_tags').val(result.data);
+			}else{
+				$.pinphp.tip({content:result.msg});
+			}
+		});
+	});
+	
+});
+</script>
+
+</body>
+</html>

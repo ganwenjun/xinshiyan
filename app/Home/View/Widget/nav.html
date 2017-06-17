@@ -1,0 +1,23 @@
+
+			<ul>
+            	<li><a href="__ROOT__/" class="f">首页<em>home</em></a></li>
+            <volist name="nav" id="val">
+            	 <li class="m"><a href="<notempty name="val['url']">{$val['url']}<else />{:U('news/about',array('id'=>$val['id']))}</notempty>"  class="f">{$val['name']}<em>{$val['alias']}</em> </a>
+               		 <ul class="sub">
+               	<volist name="val['sub']" id="val">
+               		<if condition="$val['cate_id'] eq 1">
+        <li><a href="<notempty name="val['url']">{$val['url']}<else />{:U('news/about',array('id'=>1,'art_id'=>$val['id']))}</notempty>" title="{$val['title']}">{$val['title']}</a></li>  
+        			<elseif condition="$val['cate_id'] eq 6"/>
+         <li><a href="<notempty name="val['url']">{$val['url']}<else />{:U('news/about',array('id'=>6,'art_id'=>$val['id']))}</notempty>" title="{$val['title']}">{$val['title']}</a></li> 			
+               		<elseif condition="$val['pid'] eq 2"/>
+        <li><a href="<notempty name="val['url']">{$val['url']}<else />{:U('news/product',array('id'=>2,'cate_id'=>$val['id']))}</notempty>" title="{$val['name']}">{$val['name']}</a></li>
+        			<elseif condition="$val['pid'] eq 5"/>
+        <li><a href="<notempty name="val['url']">{$val['url']}<else />{:U('news/product',array('id'=>5,'cate_id'=>$val['id']))}</notempty>" title="{$val['name']}">{$val['name']}</a></li>
+        			<else/>
+        <li><a href="<notempty name="val['url']">{$val['url']}<else />{:U('news/news',array('id'=>4,'cate_id'=>$val['id']))}</notempty>" title="{$val['name']}">{$val['name']}</a></li>			
+               		</if>
+               	</volist>	 	
+                    </ul>
+                </li>
+            </volist>	
+            </ul>

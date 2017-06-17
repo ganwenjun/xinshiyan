@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:C('pin_site_title')}</title>
+    <meta content="{:C('pin_site_keyword')}" name="keywords" />
+    <meta content="{:C('pin_site_description')}" name="description" />
+<link href="__STATIC__css/xsy.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__STATIC__js/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__js/script.js"></script> 
+<script type="text/javascript" src="__STATIC__js/ScrollPic.js"></script> 
+<script>
+$(function(){
+    var nav = $(".nav");
+    var init = $(".nav .m").eq(ind);
+    var block = $(".nav .block");
+    block.css({
+        "left": init.position().left - 3
+    });
+    nav.hover(function() {},
+    function() {
+        block.stop().animate({
+            "left": init.position().left - 3
+        },
+        100);
+    });
+    $(".nav").slide({
+        type: "menu",
+        titCell: ".m",
+        targetCell: ".sub",
+        delayTime: 300,
+        triggerTime: 0,
+        returnDefault: true,
+        defaultIndex: ind,
+        startFun: function(i, c, s, tit) {
+            block.stop().animate({
+                "left": tit.eq(i).position().left - 3
+            },
+            100);
+        }
+    });
+});
+var ind = 0;
+
+
+</script>
+
+</head>
+
+<body>
+    
+<include file="Public/top" />
+     
+<div class="banner"></div>
+
+<!--banner结束-->
+<div class="fuwu clearfix">
+  <div id="phoneCarousel">
+    <div class="previous arrow">&nbsp;</div>
+    <div class="next arrow">&nbsp;</div>
+    <div id="stage">
+    	<volist name="ad" id="val">
+    	<img width="204" height="240" src="{:attach($val['content'],'advert')}"  />
+    	</volist>
+         </div>
+  </div>
+</div> 
+
+
+<div class="case">
+	<div class="case-tit">
+    	<div class="case-tit-l">
+        	<i><img src="__STATIC__images/case-tit.png"></i>
+        	<h3>案例展示</h3>
+        	<h4>CASE DISPLAY</h4>
+        </div>
+        <div class="case-tit-c">
+        	<p>为客户提供360度服务，创造品牌价值！</p>
+        </div>
+        
+        <a href="?m=Home&c=news&a=product&id=5&cate_id=12">更多&raquo;</a>
+    </div>
+    
+    <div class="case-con">
+        <div class="leftsor" id="aebiz_left01"></div>
+    	<ul id="aebiz_center01">
+    	<volist name="cases" id="val">
+    		<li><a href="{:U('news/procon',array('id'=>5,'art_id'=>$val['id']))}">
+            	<div class="case-img"> <img src="{:attach($val['img'],'article')}"></div>
+                <p>{$val['title']}</p>
+                <span>查看详情</span>
+                </a>
+            </li>
+    	</volist>	
+        </ul>
+    <div class="rightsor" id="aebiz_right01"></div>
+    </div>
+    
+</div>
+
+<style>
+</style>
+ 
+
+<div class="newsbg">
+	<div class="newsbox">
+    	<div class="about">
+        	<h2>关于新视野</h2>
+            <p>{$about['intro']|mb_substr=0,159,'utf-8'}... </p>
+            <a href="{:U('news/about',array('id'=>1,'art_id'=>$about['id']))}">[查看详情]</a>
+        </div>
+        
+        <div class="news">
+        	<div class="news-tit">
+            	<div class="news-tit-l">
+                    <i><img src="__STATIC__images/news1-tit.png"></i>
+                    <h3>公司新闻</h3> 
+                    <h4>COMPANY NEWS</h4>
+                </div>
+                <a href="?m=Home&c=news&a=news&id=4&cate_id=7">更多&raquo;</a>
+            </div>
+            <ul>
+            	<volist name="news" id="val">
+      <li><a href="{:U('news/newscon',array('id'=>7,'art_id'=>$val['id']))}">&#8226;{$val['title']}  </a><em>{:date('Y-m-d',$val['add_time'])}</em></li>      		
+            	</volist>
+            </ul>
+            
+        </div>
+        
+        
+        <div class="news">
+        	<div class="news-tit">
+            	<div class="news-tit-l">
+                    <i><img src="__STATIC__images/news2-tit.png"></i>
+                    <h3>行业动态</h3>
+                    <h4>DYNAMIC INDUSTRY</h4>
+                </div>
+                <a href="?m=Home&c=news&a=news&id=4&cate_id=8">更多&raquo;</a>
+            </div>
+			<ul>
+				<volist name="industry" id="val">
+      <li><a href="{:U('news/newscon',array('id'=>8,'art_id'=>$val['id']))}">&#8226;{$val['title']}  </a><em>{:date('Y-m-d',$val['add_time'])}</em></li>      		
+            	</volist>
+            </ul>
+
+            
+        </div>
+        
+    </div>
+</div>
+	
+	<include file="Public/footer" />
+
+
+<script type="text/javascript" language="javascript">
+    var aebiz = new ScrollPic();
+    aebiz.scrollContId = "aebiz_center01"; //内容容器ID
+    aebiz.arrLeftId = "aebiz_left01";//左箭头ID
+    aebiz.arrRightId = "aebiz_right01"; //右箭头ID
+    aebiz.listEvent = "onmouseover"; //切换事件
+    aebiz.frameWidth = 1100;//显示框宽度
+    aebiz.pageWidth = 1000; //翻页宽度
+    aebiz.speed = 30; //移动速度(单位毫秒，越小越快)
+    aebiz.space = 10; //每次移动像素(单位px，越大越快)
+    aebiz.autoPlay = true; //自动播放
+    aebiz.upright = false; //垂直滚动
+    aebiz.autoPlayTime = 1; //自动播放间隔时间(秒)
+    aebiz.initialize(); //初始化
+</script>
+
+
+</body>
+</html>
